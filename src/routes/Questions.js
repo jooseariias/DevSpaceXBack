@@ -46,6 +46,44 @@ router.get("/Questions/search", async (req, res) => {
   }
 });
 
+//////=====> Ruta get me trae la pregunta por id
+router.get("/Questions/details/:id", async (req, res) => {
+  try {
+    const questionId = req.params.id;
+
+    // Verificar si la pregunta existe
+    const question = await Question.findByPk(questionId, {
+      include: [
+        { model: Category },
+        { model: User },
+        {
+          model: Answer,
+          include: [
+            {
+              model: User,
+            },
+          ],
+        },
+      ],
+    });
+
+    if (!question) {
+      return res.status(404).json({ message: "Question not found" });
+    }
+
+    return res.status(200).json({
+      message: "Question details retrieved successfully",
+      question: question,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: "Failed to retrieve question details",
+      error: error.message,
+    });
+  }
+});
+
 // /====> ruta Get de preguntas del usuario
 router.get("/Questions/get/:id", async (req, res) => {
   try {

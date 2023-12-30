@@ -43,35 +43,18 @@ const {
 
 // Aca vendrian las relaciones
 
-//relacion usuario y preguntas
-
-
 User.hasOne(Question);
 Question.belongsTo(User);
 
-// // // //relacion de prguntas y categorias
+
 Category.hasOne(Question)
 Question.belongsTo(Category)
 
 Question.hasMany(Answer);
 Answer.belongsTo(Question);
-// User.hasOne(Answer);
-// Answer.belongsTo(User);
 
 User.hasOne(Answer)
 Answer.belongsTo(User)
-
-
-
-// Questions.hasOne(Answer);
-// Answer.belongsTo(Questions);
-
-// Questions.hasOne(Categories,{through: "Questions_Categories"});
-// Categories.belongsTo(Questions);
-
-
-
-
 
 module.exports = {
   ...sequelize.models, 
