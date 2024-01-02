@@ -2,6 +2,21 @@ const { Router } = require("express");
 const router = Router();
 const { Category } = require("../db");
 
+///////==>>>>get de categorias
+router.get("/Categories/get", async (req, res) => {
+  try {
+    const categories = await Category.findAll();
+    if (categories.length === 0) {
+      return res.status(404).json({ message: "NO CATEGORIES FOUND" });
+    }
+
+    return res.status(200).json(categories);
+  } catch (error) {
+    console.error("Error al obtener las categorías", error);
+    return res.status(500).send("INTERNAL SERVER ERROR");
+  }
+});
+
 ///==>>>>>>> post para crear las categorias
 router.post("/Categories/Post", async (req, res) => {
   try {
