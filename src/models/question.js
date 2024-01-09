@@ -1,19 +1,20 @@
+const { defaults } = require("pg");
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define("Question", { 
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       allowNull: false,
-      primaryKey: true,
-      autoIncrement: true,
+      primaryKey: true
     },
     Title: { 
       type: DataTypes.STRING,
       allowNull: false,
     },
     Body: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     

@@ -9,14 +9,16 @@ const { Category, User, Question, Answer } = require("../db");
 router.post("/Answer/post", async (req, res) => {
     try {
       const { Body, IdUser, QuestionId } = req.body;
-      console.log(req.body);
+      
   
       const user = await User.findByPk(IdUser);
   
       if (!user) {
         return res.status(401).json({ message: "User not found" });
       }
-  
+      if (!Body) {
+        return res.status(402).json({ message: "body not found" });
+      }
       const question = await Question.findByPk(QuestionId);
   
       if (!question) {

@@ -180,11 +180,14 @@ router.post("/Questions/post", async (req, res) => {
     console.log(req.body);
     ///// Verificar si el usuario existe
     const user = await User.findByPk(IdUser);
+    const Categorias = await Category.findByPk(IdCategories);
 
     if (!user) {
       return res.status(401).json({ message: "User not found" });
     }
-
+    if (!Categorias) {
+      return res.status(401).json({ message: "Category not found" });
+    }
     //// Crear la pregunta
     const newQuestion = await Question.create({
       Title,
